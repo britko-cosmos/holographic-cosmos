@@ -1,0 +1,108 @@
+:root{
+  --bg:#000000; --bg2:#020202; --cyan:#7fe8ff; --cyan-dim:rgba(127,232,255,.55);
+  --gold:#ffd9a0; --text:#eaffff; --text-dim:rgba(234,255,255,.62);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Pretendard,sans-serif;}
+body{line-height:1.7;}
+a{color:var(--cyan);}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+header.hero{
+  padding:90px 24px 60px;text-align:center;
+  background:
+    radial-gradient(ellipse 700px 380px at 50% 0%, rgba(127,232,255,.06), transparent 70%),
+    var(--bg2);
+  border-bottom:1px solid rgba(127,232,255,.12);
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);margin:0 auto 22px;
+  box-shadow:0 0 22px 6px rgba(127,232,255,.55);}
+h1{font-size:30px;font-weight:700;letter-spacing:.01em;margin:0 0 10px;
+  text-shadow:0 0 18px rgba(127,232,255,.35);}
+.tagline{color:var(--text-dim);font-size:15px;margin:0 0 34px;}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.badge{display:inline-block;padding:10px 20px;border:1px solid var(--cyan-dim);border-radius:3px;
+  font-size:12px;letter-spacing:.06em;color:var(--cyan);text-decoration:none;text-transform:uppercase;}
+.badge.pro{border-color:rgba(255,217,160,.55);color:var(--gold);}
+.badge:hover{background:rgba(127,232,255,.08);}
+nav.sub{display:flex;gap:22px;justify-content:center;margin-top:26px;font-size:13px;}
+nav.sub a{color:var(--text-dim);text-decoration:none;}
+nav.sub a:hover{color:var(--cyan);}
+section{padding:54px 0;border-bottom:1px solid rgba(127,232,255,.08);}
+section:last-of-type{border-bottom:none;}
+h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  margin:0 0 22px;font-weight:600;}
+h3{font-size:16px;color:var(--text);margin:0 0 6px;}
+p{color:var(--text-dim);font-size:14.5px;margin:0 0 14px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+@media (max-width:560px){.grid{grid-template-columns:1fr;}}
+.feat{padding:18px 20px;border:1px solid rgba(127,232,255,.14);border-radius:4px;background:rgba(127,232,255,.03);}
+.feat .k{font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;color:var(--text-dim);}
+td,th{padding:10px 8px;border-bottom:1px solid rgba(127,232,255,.1);text-align:left;}
+th{color:var(--text);font-weight:600;}
+footer{text-align:center;padding:50px 24px 70px;color:rgba(234,255,255,.35);font-size:12px;}
+footer a{color:rgba(127,232,255,.7);}
+.back{display:inline-block;margin-bottom:30px;color:var(--text-dim);text-decoration:none;font-size:13px;}
+.back:hover{color:var(--cyan);}
+.page-title{font-size:24px;margin:0 0 6px;}
+.updated{color:rgba(234,255,255,.4);font-size:12.5px;margin-bottom:36px;}
+ol,ul{color:var(--text-dim);font-size:14.5px;padding-left:22px;}
+li{margin-bottom:8px;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+  background:rgba(127,232,255,.08);padding:2px 6px;border-radius:3px;color:var(--cyan);}
+
+header.hero{ position:relative; overflow:hidden; }
+#bigbang-canvas{
+  position:absolute; inset:0; width:100%; height:100%;
+  display:block; pointer-events:none; z-index:0;
+  transition:opacity .3s linear;
+}
+header.hero .hero-inner{ position:relative; z-index:1; }
+/* Outer wrapper: pure positioning only -- no opacity/visibility here.
+   (Earlier version had opacity:0 + a `.show` rule on THIS element, but the
+   JS only ever toggles `.show` on the inner .logo-text -- so this element's
+   opacity was permanently stuck at 0 and hid the logo no matter what the
+   inner element did. That was the actual bug.) */
+#logo-reveal{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  z-index:1; pointer-events:none;
+}
+#logo-reveal img{ max-height:64px; }
+
+/* Inner element: this is the ONLY thing whose visibility toggles. Sits at
+   the exact spot the particles converge on (screen center of the header)
+   -- which is also where the title/tagline live, so a soft dark backdrop
+   pill makes it read clearly no matter what's behind it. */
+.logo-text{
+  text-align:center; opacity:0; transform:scale(.85);
+  transition:opacity 1.2s ease, transform 1.2s cubic-bezier(.2,.8,.2,1);
+  padding:18px 30px;
+  background:radial-gradient(ellipse at center, rgba(4,7,12,.88) 0%, rgba(4,7,12,.72) 55%, transparent 100%);
+  border-radius:10px;
+}
+.logo-text.show{ opacity:1; transform:scale(1); }
+.logo-text .mark{
+  font-size:34px; font-weight:700; letter-spacing:.3em; color:var(--gold);
+  text-shadow:0 0 26px rgba(255,217,160,.65); margin-bottom:8px;
+}
+.logo-text .full{
+  font-size:12px; letter-spacing:.16em; color:rgba(234,255,255,.6);
+  text-transform:uppercase;
+}
+
+
+#galaxy-bg-frame{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+  z-index:0; pointer-events:none;
+}
+header.hero::after{
+  /* dark gradient over the live galaxy view so the title/tagline/badges stay legible */
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 640px 420px at 50% 46%, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.15) 78%, transparent 100%),
+    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.55));
+}
+
+/* store badge shown before the app is live */
+.badge.soon { opacity:.55; pointer-events:none; cursor:default; }
