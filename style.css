@@ -65,8 +65,8 @@ header.hero .hero-inner{ position:relative; z-index:1; }
    opacity was permanently stuck at 0 and hid the logo no matter what the
    inner element did. That was the actual bug.) */
 #logo-reveal{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  z-index:1; pointer-events:none;
+  position:relative; display:flex; justify-content:center; z-index:1;
+  margin:0 0 30px; pointer-events:none;
 }
 #logo-reveal img{ max-height:64px; }
 
@@ -75,15 +75,12 @@ header.hero .hero-inner{ position:relative; z-index:1; }
    -- which is also where the title/tagline live, so a soft dark backdrop
    pill makes it read clearly no matter what's behind it. */
 .logo-text{
-  text-align:center; opacity:0; transform:scale(.85);
-  transition:opacity 1.2s ease, transform 1.2s cubic-bezier(.2,.8,.2,1);
-  padding:18px 30px;
-  background:radial-gradient(ellipse at center, rgba(4,7,12,.88) 0%, rgba(4,7,12,.72) 55%, transparent 100%);
-  border-radius:10px;
+  text-align:center; opacity:1; transform:none; padding:0;
+  background:none; border-radius:0;
 }
 .logo-text.show{ opacity:1; transform:scale(1); }
 .logo-text .mark{
-  font-size:34px; font-weight:700; letter-spacing:.3em; color:var(--gold);
+  font-size:30px; font-weight:700; letter-spacing:.3em; padding-left:.3em; color:var(--gold);
   text-shadow:0 0 26px rgba(255,217,160,.65); margin-bottom:8px;
 }
 .logo-text .full{
