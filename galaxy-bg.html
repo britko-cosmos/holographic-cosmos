@@ -2608,7 +2608,7 @@
   // the first tap.
   // =====================================================================
   var Ambient = (function(){
-    var AC = window.AudioContext || window.webkitAudioContext;
+    var AC = null;   /* website background: ambient sound permanently disabled (the app keeps its own SND control) */
     var ctx = null, master = null, built = false, muted = false, TARGET = 0.20;
     try { muted = window.localStorage.getItem('cosmos.muted') === '1'; } catch(e){}
     // the native app injects the saved choice (file:// WebViews may not keep localStorage between launches)
